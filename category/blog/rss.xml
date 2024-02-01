@@ -1,16 +1,22 @@
 <?xml version="1.0"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://antengye.github.io</id>
-    <title>Antengye&#39;s Blog</title>
-    <link href="https://antengye.github.io" />
-    <updated>2024-01-31T10:00:12.000Z</updated>
-    <category term="折腾" />
-    <category term="Hexo" />
-    <entry>
-        <id>https://antengye.github.io/p/e1f/</id>
-        <title>捣鼓hexo和Buttfly主题</title>
-        <link rel="alternate" href="https://antengye.github.io/p/e1f/"/>
-        <content type="html">&lt;h2 id=&#34;前言&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h2&gt;
+<rss version="2.0">
+    <channel>
+        <title>Antengye&#39;s Blog • Posts by &#34;blog&#34; category</title>
+        <link>https://antengye.github.io</link>
+        <description>记录的本质是为了更高效地生活，分享的本质是什么呢？</description>
+        <language>zh-CN</language>
+        <pubDate>Wed, 31 Jan 2024 18:00:12 +0800</pubDate>
+        <lastBuildDate>Wed, 31 Jan 2024 18:00:12 +0800</lastBuildDate>
+        <category>折腾</category>
+        <category>Hexo</category>
+        <item>
+            <guid isPermalink="true">https://antengye.github.io/p/e1f/</guid>
+            <title>捣鼓hexo和Buttfly主题</title>
+            <link>https://antengye.github.io/p/e1f/</link>
+            <category>折腾</category>
+            <category>Hexo</category>
+            <pubDate>Wed, 31 Jan 2024 18:00:12 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;前言&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h2&gt;
 &lt;p&gt;本以为建一个 blog 很简单，毕竟简单了解了一下用的方式，hexo+GitHub 几乎没什么成本嘛。&lt;br&gt;
 看到别人说还要整两天，我还觉得诧异，这有啥难的。&lt;br&gt;
 实际捣鼓到基本能用的程度之后才发现，对不起，是我低估了。&lt;/p&gt;
@@ -94,9 +100,7 @@
 &lt;p&gt;写完发布！&lt;br&gt;
  &lt;code&gt;hexo clean&lt;/code&gt; &lt;br&gt;
  &lt;code&gt;hexo d -g&lt;/code&gt;&lt;/p&gt;
-</content>
-        <category term="折腾" />
-        <category term="Hexo" />
-        <updated>2024-01-31T10:00:12.000Z</updated>
-    </entry>
-</feed>
+ ]]></description>
+        </item>
+    </channel>
+</rss>
