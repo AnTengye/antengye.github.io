@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://antengye.github.io</id>
+    <id>https://bigorange.work</id>
     <title>Antengye&#39;s Blog • Posts by &#34;折腾&#34; tag</title>
-    <link href="https://antengye.github.io" />
+    <link href="https://bigorange.work" />
     <updated>2024-01-31T10:00:12.000Z</updated>
     <category term="折腾" />
     <category term="Hexo" />
     <entry>
-        <id>https://antengye.github.io/p/e1f/</id>
-        <title>捣鼓hexo和Buttfly主题</title>
-        <link rel="alternate" href="https://antengye.github.io/p/e1f/"/>
+        <id>https://bigorange.work/p/e1f/</id>
+        <title>捣鼓hexo与githubio</title>
+        <link rel="alternate" href="https://bigorange.work/p/e1f/"/>
         <content type="html">&lt;h2 id=&#34;前言&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h2&gt;
 &lt;p&gt;本以为建一个 blog 很简单，毕竟简单了解了一下用的方式，hexo+GitHub 几乎没什么成本嘛。&lt;br&gt;
 看到别人说还要整两天，我还觉得诧异，这有啥难的。&lt;br&gt;
@@ -86,6 +86,107 @@
 &lt;p&gt;在安装完之后，推荐配置这几个选项&lt;br&gt;
 &lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011510316.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在你配置完图床的信息之后，你只需要 &lt;code&gt;ctrl+c&lt;/code&gt;  一下你的图片，再按一下 &lt;code&gt;ctrl+shift+p&lt;/code&gt;  即可完成&lt;strong&gt;拖动图片 + 上传图片 + 复制图片地址&lt;/strong&gt;这个流程，这时候在文章中粘贴一下就完事了。&lt;/p&gt;
+&lt;h2 id=&#34;自定义域名&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#自定义域名&#34;&gt;#&lt;/a&gt; 自定义域名&lt;/h2&gt;
+&lt;p&gt;本来 github 的 pages 本身提供 https://yourname.github.io/ 的域名。&lt;/p&gt;
+&lt;p&gt;但是想要变更为自己的域名，就麻烦一点。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://xn--xxxx-uk1gj6r17c809cn4zb8f0ajkm.com&#34;&gt;比如说配置域名 xxxx.com&lt;/a&gt;，随后在域名运营商那里设置 DNS，增加 CNAME 记录:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Content&lt;/th&gt;
+&lt;th&gt;TTL&lt;/th&gt;
+&lt;th&gt;Proxy status&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CNAME&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxx.github.io&#34;&gt;xxx.github.io&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;除了 CNAME, 也可以配置 A 记录：&lt;/p&gt;
+&lt;p&gt;这几个 A 记录可以在这里确认：&lt;a href=&#34;https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site&#34;&gt;A 记录&lt;/a&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Content&lt;/th&gt;
+&lt;th&gt;TTL&lt;/th&gt;
+&lt;th&gt;Proxy status&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;185.199.108.153&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;185.199.109.153&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;185.199.110.153&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;185.199.111.153&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;自定义域名是无法直接使用 https，因为 GitHub 服务器上无法配置我们的域名的证书&lt;/p&gt;
+&lt;p&gt;现在 GitHub Pages 的初始域名会强制 HTTPS，也会强制 http 跳转 https:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Enforce HTTPS&lt;br&gt;
+— Required for your site because you are using the default domain (&lt;a href=&#34;http://xxx.github.io&#34;&gt;xxx.github.io&lt;/a&gt;)&lt;br&gt;
+HTTPS provides a layer of encryption that prevents others from snooping on or tampering with traffic to your site. When HTTPS is enforced, your site will only be &amp;gt; &amp;gt; served over HTTPS.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以，想要使用 https 的话，就得继续设置 CAA。&lt;a href=&#34;https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/troubleshooting-custom-domains-and-github-pages#https-errors&#34;&gt;原因&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;caa&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#caa&#34;&gt;#&lt;/a&gt; CAA&lt;/h3&gt;
+&lt;p&gt;GitHub 使用 &lt;code&gt;letsencrypt&lt;/code&gt;  提供的 &lt;code&gt;CAA&lt;/code&gt;  证书签名服务：&lt;a href=&#34;https://letsencrypt.org/docs/caa/&#34;&gt;CAA 说明&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;配置如下：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Content&lt;/th&gt;
+&lt;th&gt;TTL&lt;/th&gt;
+&lt;th&gt;Proxy status&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CAA&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;0 issue &lt;a href=&#34;http://letsencrypt.org&#34;&gt;letsencrypt.org&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;然后等一段时间之后，访问&lt;a href=&#34;https://github.com/AnTengye/antengye.github.io/settings/pages&#34;&gt; github-pages&lt;/a&gt; 检查这个页面的 DNScheck 是否通过。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011750256.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;通过后便可以勾选 Enforce HTTPS 了&lt;/p&gt;
 &lt;h2 id=&#34;结语&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#结语&#34;&gt;#&lt;/a&gt; 结语&lt;/h2&gt;
 &lt;p&gt;总的来说，整完这么一套，能把这篇博客发出来，就算是搞一个段落了。&lt;/p&gt;
 &lt;p&gt;中间用到的各种工具，得亏平时有一些接触，不然写起来是真的很麻烦。&lt;/p&gt;
