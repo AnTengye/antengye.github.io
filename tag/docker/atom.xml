@@ -4,14 +4,14 @@
     <title>Antengye&#39;s Blog • Posts by &#34;docker&#34; tag</title>
     <link href="https://bigorange.work" />
     <updated>2024-02-29T13:15:36.000Z</updated>
+    <category term="Docker" />
+    <category term="game" />
     <category term="内网穿透" />
     <category term="tailscale" />
     <category term="headscale" />
     <category term="network" />
     <category term="折腾" />
     <category term="Hexo" />
-    <category term="Docker" />
-    <category term="game" />
     <entry>
         <id>https://bigorange.work/p/489377b1/</id>
         <title>如何成为一名监督帕鲁的服主</title>
@@ -50,7 +50,7 @@
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;curl -fsSL get.docker.com -o get-docker.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;sudo sh get-docker.sh --mirror Aliyun&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h3 id=&#34;docker-compose&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#docker-compose&#34;&gt;#&lt;/a&gt; Docker-compose&lt;/h3&gt;
 &lt;p&gt;Docker-compose 又是干什么的？&lt;s&gt;编排巴拉巴拉的…&lt;/s&gt;&lt;/p&gt;
-&lt;p&gt;其实就是简化 docker 的命令，实现：一条简短的命令启动。&lt;/p&gt;
+&lt;p&gt;其实目前阶段只需要知道，它就是简化 docker 的命令，实现：一条简短的命令启动。&lt;/p&gt;
 &lt;p&gt;现在的 docker 安装的时候一般都带上了 Docker-compose&lt;/p&gt;
 &lt;p&gt;可以输入命令 &lt;code&gt;docker compose --help&lt;/code&gt;  测试下是否有了&lt;/p&gt;
 &lt;h3 id=&#34;部署启动&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#部署启动&#34;&gt;#&lt;/a&gt; 部署 + 启动&lt;/h3&gt;
@@ -112,31 +112,32 @@ volumes:
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;restart：重启策略&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;restart: “no” // 不会自动重启&lt;/li&gt;
+&lt;li&gt;restart: always // 只要关掉了就会重启&lt;/li&gt;
+&lt;li&gt;restart: on-failure // 服务启动失败会重启&lt;/li&gt;
+&lt;li&gt;restart: unless-stopped // 除非被手动关闭&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;pre&gt;&lt;code&gt;restart: &amp;quot;no&amp;quot; //不会自动重启
-restart: always //只要关掉了就会重启
-restart: on-failure //服务启动失败会重启
-restart: unless-stopped //除非被手动关闭
-&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;- image：镜像地址&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  - 作为核心。一个将服务端打包好的链接，本次用的是https://github.com/jammsen/docker-palworld-dedicated-server&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  - 也可以自己制作并打包镜像，这里就不多赘述。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;### 端口映射&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;```yaml&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;ports:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  - target: 8211 # Gamerserver port inside of the container&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    published: 8211 # Gamerserver port on your host&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    protocol: udp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    mode: host&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  - target: 25575 # RCON port inside of the container&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    published: 25575 # RCON port on your host&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    protocol: tcp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    mode: host&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;image：镜像地址&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;作为核心。一个将服务端打包好的链接，本次用的是 https://github.com/jammsen/docker-palworld-dedicated-server&lt;/li&gt;
+&lt;li&gt;也可以自己制作并打包镜像，这里就不多赘述。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;target&lt;/code&gt; : 容器自己本身的端口。镜像不变更的情况下不能改这个&lt;/p&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;端口映射&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#端口映射&#34;&gt;#&lt;/a&gt; 端口映射&lt;/h3&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;ports:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;target:&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;8211&lt;/span&gt; &lt;span class=&#34;comment&#34;&gt;# Gamerserver port inside of the container&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;published:&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;8211&lt;/span&gt; &lt;span class=&#34;comment&#34;&gt;# Gamerserver port on your host&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;protocol:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;udp&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;mode:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;host&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;target:&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;25575&lt;/span&gt; &lt;span class=&#34;comment&#34;&gt;# RCON port inside of the container&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;published:&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;25575&lt;/span&gt; &lt;span class=&#34;comment&#34;&gt;# RCON port on your host&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;protocol:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;tcp&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;mode:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;host&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;target&lt;/code&gt; : 容器自己本身的端口。镜像不变更的情况下不能改这个
 &lt;ul&gt;
 &lt;li&gt;对于帕鲁服务端来说，默认端口开放在 8211，镜像制作也一般选择 8211&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;published&lt;/code&gt; : 对外暴露的端口。也就是你在客户端要连接的时候需要输入的端口号。这个可以自己调整&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;protocol&lt;/code&gt; : 端口的协议。一般服务端都是 UDP 协议，网站一般是 TCP 协议。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;mode&lt;/code&gt; : 网络模式，有 &lt;code&gt;host&lt;/code&gt;  、 &lt;code&gt;bridge&lt;/code&gt; 、  &lt;code&gt;none&lt;/code&gt;  等这里就不展开了。要深入了解的可以查看文档：&lt;a href=&#34;https://docs.docker.com/network/drivers/&#34;&gt;https://docs.docker.com/network/drivers/&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;published&lt;/code&gt; : 对外暴露的端口。也就是你在客户端要连接的时候需要输入的端口号。这个可以自己调整&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;protocol&lt;/code&gt; : 端口的协议。一般服务端都是 UDP 协议，网站一般是 TCP 协议。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mode&lt;/code&gt; : 网络模式，有 &lt;code&gt;host&lt;/code&gt;  、 &lt;code&gt;bridge&lt;/code&gt; 、  &lt;code&gt;none&lt;/code&gt;  等这里就不展开了。要深入了解的可以查看文档：&lt;a href=&#34;https://docs.docker.com/network/drivers/&#34;&gt;https://docs.docker.com/network/drivers/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;目录映射&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#目录映射&#34;&gt;#&lt;/a&gt; 目录映射&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;env_file:
