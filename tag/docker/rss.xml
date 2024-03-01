@@ -26,7 +26,7 @@
 &lt;p&gt;帕鲁刚推出没多久，就有朋友告诉了我&lt;/p&gt;
 &lt;p&gt;咋一看，这不宝可梦吗，作为&lt;s&gt;口袋妖怪&lt;/s&gt;宝可梦玩家，果断开玩。&lt;/p&gt;
 &lt;p&gt;这不，最近跟朋友们一起玩的帕鲁服务器也已经将近 2000 个游戏日了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292123546.png&#34; alt=&#34;服务器截图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292123546.png&#34; alt=&#34;服务器截图&#34;&gt;&lt;/p&gt;
 &lt;p&gt;作为 “腐竹”，为了能够提供给朋友最佳的游戏体验，自然是要好好维护好帕鲁服务器的。&lt;/p&gt;
 &lt;p&gt;以下的内容应该可以初步帮助新手腐竹们搭建并管理自己的独立服务器。&lt;/p&gt;
 &lt;h2 id=&#34;服务器的抉择&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#服务器的抉择&#34;&gt;#&lt;/a&gt; 服务器的抉择&lt;/h2&gt;
@@ -78,7 +78,7 @@ volumes:
 &lt;p&gt;此时，再次执行命令： &lt;code&gt;docker compose up -d &amp;amp;&amp;amp; docker compose logs -f &lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;观察一下当前日志，初次启动会下载服务端文件比较耗时。&lt;/p&gt;
 &lt;p&gt;当看到这样的内容出来，就说启动成功&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402291438622.png&#34; alt=&#34;帕鲁服务端启动完成&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402291438622.png&#34; alt=&#34;帕鲁服务端启动完成&#34;&gt;&lt;/p&gt;
 &lt;p&gt;可以按 ctrl+c 结束日志查看。&lt;/p&gt;
 &lt;p&gt;完整目录结构如下&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;- server&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  - docker-compose.yml&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  - default.env&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  - game&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -159,7 +159,7 @@ volumes:
 &lt;li&gt;&lt;code&gt;./game:/palworld&lt;/code&gt;  的意思是，将当前目录下的 game 目录挂载到容器中的 /palworld 目录下。（通俗的说就是 game 目录此时等同于 palword 目录）&lt;/li&gt;
 &lt;li&gt;此时，docker 服务里面产生游戏数据都会存到 /palworld 目录下，我们也就可以通过 game 目录访问到游戏数据了&lt;/li&gt;
 &lt;li&gt;在游戏启动完成后，你可以 cd 到 game 目录下查看是否已经有了游戏文件了&lt;/li&gt;
-&lt;li&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292131502.png&#34; alt=&#34;游戏目录的文件&#34;&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292131502.png&#34; alt=&#34;游戏目录的文件&#34;&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -169,7 +169,7 @@ volumes:
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;docker stats&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;通过这个命令，可以查看到帕鲁服务占用的资源，如果占用异常了，就及时进行重启 &lt;code&gt;docker compose restart&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;如下图第一个就是帕鲁服务器的资源占用情况。这还是已经配置了自动重启后的。&lt;br&gt;
-&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402281502468.png&#34; alt=&#34;帕鲁服务资源占用&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402281502468.png&#34; alt=&#34;帕鲁服务资源占用&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#总结&#34;&gt;#&lt;/a&gt; 总结&lt;/h2&gt;
 &lt;p&gt;以上就是帮助各位成为一名合格的监督帕鲁的服主的教程，当然还有很多细节没有介绍到。&lt;/p&gt;
 &lt;p&gt;如果有需要，那就另外开坑细讲了。&lt;/p&gt;

@@ -20,7 +20,7 @@
 &lt;p&gt;帕鲁刚推出没多久，就有朋友告诉了我&lt;/p&gt;
 &lt;p&gt;咋一看，这不宝可梦吗，作为&lt;s&gt;口袋妖怪&lt;/s&gt;宝可梦玩家，果断开玩。&lt;/p&gt;
 &lt;p&gt;这不，最近跟朋友们一起玩的帕鲁服务器也已经将近 2000 个游戏日了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292123546.png&#34; alt=&#34;服务器截图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292123546.png&#34; alt=&#34;服务器截图&#34;&gt;&lt;/p&gt;
 &lt;p&gt;作为 “腐竹”，为了能够提供给朋友最佳的游戏体验，自然是要好好维护好帕鲁服务器的。&lt;/p&gt;
 &lt;p&gt;以下的内容应该可以初步帮助新手腐竹们搭建并管理自己的独立服务器。&lt;/p&gt;
 &lt;h2 id=&#34;服务器的抉择&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#服务器的抉择&#34;&gt;#&lt;/a&gt; 服务器的抉择&lt;/h2&gt;
@@ -72,7 +72,7 @@ volumes:
 &lt;p&gt;此时，再次执行命令： &lt;code&gt;docker compose up -d &amp;amp;&amp;amp; docker compose logs -f &lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;观察一下当前日志，初次启动会下载服务端文件比较耗时。&lt;/p&gt;
 &lt;p&gt;当看到这样的内容出来，就说启动成功&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402291438622.png&#34; alt=&#34;帕鲁服务端启动完成&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402291438622.png&#34; alt=&#34;帕鲁服务端启动完成&#34;&gt;&lt;/p&gt;
 &lt;p&gt;可以按 ctrl+c 结束日志查看。&lt;/p&gt;
 &lt;p&gt;完整目录结构如下&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;- server&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  - docker-compose.yml&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  - default.env&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  - game&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -153,7 +153,7 @@ volumes:
 &lt;li&gt;&lt;code&gt;./game:/palworld&lt;/code&gt;  的意思是，将当前目录下的 game 目录挂载到容器中的 /palworld 目录下。（通俗的说就是 game 目录此时等同于 palword 目录）&lt;/li&gt;
 &lt;li&gt;此时，docker 服务里面产生游戏数据都会存到 /palworld 目录下，我们也就可以通过 game 目录访问到游戏数据了&lt;/li&gt;
 &lt;li&gt;在游戏启动完成后，你可以 cd 到 game 目录下查看是否已经有了游戏文件了&lt;/li&gt;
-&lt;li&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292131502.png&#34; alt=&#34;游戏目录的文件&#34;&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292131502.png&#34; alt=&#34;游戏目录的文件&#34;&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -163,7 +163,7 @@ volumes:
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;docker stats&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;通过这个命令，可以查看到帕鲁服务占用的资源，如果占用异常了，就及时进行重启 &lt;code&gt;docker compose restart&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;如下图第一个就是帕鲁服务器的资源占用情况。这还是已经配置了自动重启后的。&lt;br&gt;
-&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402281502468.png&#34; alt=&#34;帕鲁服务资源占用&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402281502468.png&#34; alt=&#34;帕鲁服务资源占用&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;总结&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#总结&#34;&gt;#&lt;/a&gt; 总结&lt;/h2&gt;
 &lt;p&gt;以上就是帮助各位成为一名合格的监督帕鲁的服主的教程，当然还有很多细节没有介绍到。&lt;/p&gt;
 &lt;p&gt;如果有需要，那就另外开坑细讲了。&lt;/p&gt;
@@ -201,11 +201,11 @@ volumes:
 &lt;p&gt;&lt;a href=&#34;https://pkgs.tailscale.com/stable/#static&#34;&gt;https://pkgs.tailscale.com/stable/#static&lt;/a&gt;&lt;/p&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;tar zxvf tailscale_1.22.2_amd64.tgz&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;cp&lt;/span&gt; tailscale_1.22.2_amd64/tailscaled /usr/sbin/tailscaled&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;cp&lt;/span&gt; tailscale_1.22.2_amd64/tailscale /usr/bin/tailscale&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;cp&lt;/span&gt; tailscale_1.22.2_amd64/systemd/tailscaled.service /lib/systemd/system/tailscaled.service&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;cp&lt;/span&gt; tailscale_1.22.2_amd64/systemd/tailscaled.defaults /etc/default/tailscaled&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h4 id=&#34;openwrt&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#openwrt&#34;&gt;#&lt;/a&gt; Openwrt&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402021736141.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402021736141.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;h4 id=&#34;windows&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#windows&#34;&gt;#&lt;/a&gt; Windows&lt;/h4&gt;
 &lt;p&gt;访问此链接页面&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;http://&amp;lt;SERVER_IP&amp;gt;:8080/windows&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402021736586.png&#34; alt=&#34;image-win&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402021736586.png&#34; alt=&#34;image-win&#34;&gt;&lt;/p&gt;
 &lt;p&gt;安装 tailscale 的 windows 包&lt;/p&gt;
 &lt;h3 id=&#34;注册到服务端&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#注册到服务端&#34;&gt;#&lt;/a&gt; 注册到服务端&lt;/h3&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;tailscale up --login-server=http://&amp;lt;SERVER_IP&amp;gt;:8080 --accept-routes=&lt;span class=&#34;literal&#34;&gt;true&lt;/span&gt; --accept-dns=&lt;span class=&#34;literal&#34;&gt;false&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 开通子网路由&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# tailscale up --login-server=http://&amp;lt;SERVER_IP&amp;gt;:8080 --advertise-routes=192.168.31.0/24 --accept-routes=true --accept-dns=false&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -275,7 +275,7 @@ volumes:
 &lt;li&gt;装 node.js&lt;/li&gt;
 &lt;li&gt;github 创建 2 个仓库（建议）
 &lt;ol&gt;
-&lt;li&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011118120.jpg&#34; alt=&#34;仓库安排&#34;&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011118120.jpg&#34; alt=&#34;仓库安排&#34;&gt;&lt;/li&gt;
 &lt;li&gt;工作区就是自己写博客的环境，静态区就是用来挂博客文件的。&lt;/li&gt;
 &lt;li&gt;考虑可能会在不同地方写博客，所以把工作区也上传到 github 上进行管理。&lt;/li&gt;
 &lt;li&gt;静态区的创建参考官方教程：&lt;a href=&#34;https://pages.github.com/&#34;&gt;https://pages.github.com/&lt;/a&gt;&lt;/li&gt;
@@ -320,7 +320,7 @@ volumes:
 &lt;p&gt;现在 AI 这么多工具，用 AI 来生成一个文章配图不算什么难事。&lt;/p&gt;
 &lt;p&gt;我把生成配图的 AI 工具整到了&lt;i class=&#34;fa-brands fa-discord&#34; style=&#34;color: #B197FC;&#34;&gt;&lt;/i&gt;&lt;a href=&#34;https://discord.gg/B2b9RdYb&#34;&gt;Discord&lt;/a&gt; 中，用起来更加方便一点。&lt;/p&gt;
 &lt;p&gt;比如这样：&lt;br&gt;
-&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011454144.png&#34; alt=&#34;Discord&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011454144.png&#34; alt=&#34;Discord&#34;&gt;&lt;/p&gt;
 &lt;p&gt;欢迎进来一起使用：&lt;i class=&#34;fa-brands fa-discord&#34; style=&#34;color: #B197FC;&#34;&gt;&lt;/i&gt;&lt;a href=&#34;https://discord.gg/B2b9RdYb&#34;&gt;Discord&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;图床&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#图床&#34;&gt;#&lt;/a&gt; 图床&lt;/h3&gt;
 &lt;p&gt;有了图片，但是怎么贴到 markdown 里面是个问题。&lt;/p&gt;
@@ -333,7 +333,7 @@ volumes:
 &lt;p&gt;在图床上传完图片之后，直接在文章中贴 &lt;code&gt;![](图片地址)&lt;/code&gt;  对应图片的地址即可。&lt;/p&gt;
 &lt;p&gt;不过拖动图片 + 上传图片 + 复制图片地址的流程会有点麻烦，所以这里推荐工具 &lt;a href=&#34;https://picgo.github.io/PicGo-Doc/zh/guide/&#34;&gt;picgo&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;在安装完之后，推荐配置这几个选项&lt;br&gt;
-&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011510316.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011510316.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在你配置完图床的信息之后，你只需要 &lt;code&gt;ctrl+c&lt;/code&gt;  一下你的图片，再按一下 &lt;code&gt;ctrl+shift+p&lt;/code&gt;  即可完成&lt;strong&gt;拖动图片 + 上传图片 + 复制图片地址&lt;/strong&gt;这个流程，这时候在文章中粘贴一下就完事了。&lt;/p&gt;
 &lt;h2 id=&#34;自定义域名&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#自定义域名&#34;&gt;#&lt;/a&gt; 自定义域名&lt;/h2&gt;
 &lt;p&gt;本来 github 的 pages 本身提供 https://yourname.github.io/ 的域名。&lt;/p&gt;
@@ -434,7 +434,7 @@ HTTPS provides a layer of encryption that prevents others from snooping on or ta
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;然后等一段时间之后，访问&lt;a href=&#34;https://github.com/AnTengye/antengye.github.io/settings/pages&#34;&gt; github-pages&lt;/a&gt; 检查这个页面的 DNScheck 是否通过。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011750256.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011750256.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;通过后便可以勾选 Enforce HTTPS 了&lt;/p&gt;
 &lt;h2 id=&#34;结语&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#结语&#34;&gt;#&lt;/a&gt; 结语&lt;/h2&gt;
 &lt;p&gt;总的来说，整完这么一套，能把这篇博客发出来，就算是搞一个段落了。&lt;/p&gt;

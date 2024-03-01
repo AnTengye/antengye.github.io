@@ -38,7 +38,7 @@
 &lt;li&gt;装 node.js&lt;/li&gt;
 &lt;li&gt;github 创建 2 个仓库（建议）
 &lt;ol&gt;
-&lt;li&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011118120.jpg&#34; alt=&#34;仓库安排&#34;&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011118120.jpg&#34; alt=&#34;仓库安排&#34;&gt;&lt;/li&gt;
 &lt;li&gt;工作区就是自己写博客的环境，静态区就是用来挂博客文件的。&lt;/li&gt;
 &lt;li&gt;考虑可能会在不同地方写博客，所以把工作区也上传到 github 上进行管理。&lt;/li&gt;
 &lt;li&gt;静态区的创建参考官方教程：&lt;a href=&#34;https://pages.github.com/&#34;&gt;https://pages.github.com/&lt;/a&gt;&lt;/li&gt;
@@ -83,7 +83,7 @@
 &lt;p&gt;现在 AI 这么多工具，用 AI 来生成一个文章配图不算什么难事。&lt;/p&gt;
 &lt;p&gt;我把生成配图的 AI 工具整到了&lt;i class=&#34;fa-brands fa-discord&#34; style=&#34;color: #B197FC;&#34;&gt;&lt;/i&gt;&lt;a href=&#34;https://discord.gg/B2b9RdYb&#34;&gt;Discord&lt;/a&gt; 中，用起来更加方便一点。&lt;/p&gt;
 &lt;p&gt;比如这样：&lt;br&gt;
-&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011454144.png&#34; alt=&#34;Discord&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011454144.png&#34; alt=&#34;Discord&#34;&gt;&lt;/p&gt;
 &lt;p&gt;欢迎进来一起使用：&lt;i class=&#34;fa-brands fa-discord&#34; style=&#34;color: #B197FC;&#34;&gt;&lt;/i&gt;&lt;a href=&#34;https://discord.gg/B2b9RdYb&#34;&gt;Discord&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;图床&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#图床&#34;&gt;#&lt;/a&gt; 图床&lt;/h3&gt;
 &lt;p&gt;有了图片，但是怎么贴到 markdown 里面是个问题。&lt;/p&gt;
@@ -96,7 +96,7 @@
 &lt;p&gt;在图床上传完图片之后，直接在文章中贴 &lt;code&gt;![](图片地址)&lt;/code&gt;  对应图片的地址即可。&lt;/p&gt;
 &lt;p&gt;不过拖动图片 + 上传图片 + 复制图片地址的流程会有点麻烦，所以这里推荐工具 &lt;a href=&#34;https://picgo.github.io/PicGo-Doc/zh/guide/&#34;&gt;picgo&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;在安装完之后，推荐配置这几个选项&lt;br&gt;
-&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011510316.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011510316.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在你配置完图床的信息之后，你只需要 &lt;code&gt;ctrl+c&lt;/code&gt;  一下你的图片，再按一下 &lt;code&gt;ctrl+shift+p&lt;/code&gt;  即可完成&lt;strong&gt;拖动图片 + 上传图片 + 复制图片地址&lt;/strong&gt;这个流程，这时候在文章中粘贴一下就完事了。&lt;/p&gt;
 &lt;h2 id=&#34;自定义域名&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#自定义域名&#34;&gt;#&lt;/a&gt; 自定义域名&lt;/h2&gt;
 &lt;p&gt;本来 github 的 pages 本身提供 https://yourname.github.io/ 的域名。&lt;/p&gt;
@@ -197,7 +197,7 @@ HTTPS provides a layer of encryption that prevents others from snooping on or ta
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;然后等一段时间之后，访问&lt;a href=&#34;https://github.com/AnTengye/antengye.github.io/settings/pages&#34;&gt; github-pages&lt;/a&gt; 检查这个页面的 DNScheck 是否通过。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011750256.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011750256.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;通过后便可以勾选 Enforce HTTPS 了&lt;/p&gt;
 &lt;h2 id=&#34;结语&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#结语&#34;&gt;#&lt;/a&gt; 结语&lt;/h2&gt;
 &lt;p&gt;总的来说，整完这么一套，能把这篇博客发出来，就算是搞一个段落了。&lt;/p&gt;
