@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>在阿里云搭建无域名的tailscale的Derp服务 | Antengye's Blog</title><meta name="author" content="Antengye"><meta name="copyright" content="Antengye"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="书接 (Tailscale 组网记录)[.&#x2F;22f71dfd] # 为什么需要 Derp 服务 这是由于 Tailscale 机制决定的。 tailscale 只会在需要与 peer 建立连接的时候才会尝试打洞，而且最开始的流量一定是会经过 DERP 中转服务器。 优点：懒加载机制无需预先维护与其他节点的任何打洞连接，无需预先维护任何状态。 缺点：每次通过 tailscale 创建虚拟连接时，初始">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在阿里云搭建无域名的tailscale的Derp服务">
+<meta property="og:url" content="https://bigorange.work/p/88ab7236/index.html">
+<meta property="og:site_name" content="Antengye&#39;s Blog">
+<meta property="og:description" content="书接 (Tailscale 组网记录)[.&#x2F;22f71dfd] # 为什么需要 Derp 服务 这是由于 Tailscale 机制决定的。 tailscale 只会在需要与 peer 建立连接的时候才会尝试打洞，而且最开始的流量一定是会经过 DERP 中转服务器。 优点：懒加载机制无需预先维护与其他节点的任何打洞连接，无需预先维护任何状态。 缺点：每次通过 tailscale 创建虚拟连接时，初始">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bigorange.work/images/cover.webp">
+<meta property="article:published_time" content="2025-01-10T06:05:33.000Z">
+<meta property="article:modified_time" content="2025-01-11T06:43:38.247Z">
+<meta property="article:author" content="Antengye">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bigorange.work/images/cover.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "在阿里云搭建无域名的tailscale的Derp服务",
+  "url": "https://bigorange.work/p/88ab7236/",
+  "image": "https://bigorange.work/images/cover.webp",
+  "datePublished": "2025-01-10T06:05:33.000Z",
+  "dateModified": "2025-01-11T06:43:38.247Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Antengye",
+      "url": "https://bigorange.work"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/logo.png"><link rel="canonical" href="https://bigorange.work/p/88ab7236/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="codeva-12PXeNCJS8"/><link rel="stylesheet" href="/css/index.css?v=5.3.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0618772867f22967ce9ceb04f068e047";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Antengye","link":"链接: ","source":"来源: Antengye's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '在阿里云搭建无域名的tailscale的Derp服务',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页 | Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸 | Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签 | Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类 | Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/cover.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/images/logo.png" alt="Logo"><span class="site-name">Antengye's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">在阿里云搭建无域名的tailscale的Derp服务</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页 | Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸 | Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签 | Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类 | Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">在阿里云搭建无域名的tailscale的Derp服务</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-10T06:05:33.000Z" title="发表于 2025-01-10 14:05:33">2025-01-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-11T06:43:38.247Z" title="更新于 2025-01-11 14:43:38">2025-01-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>书接 (Tailscale 组网记录)[./22f71dfd]</p>
+<h2 id="为什么需要derp服务"><a class="markdownIt-Anchor" href="#为什么需要derp服务">#</a> 为什么需要 Derp 服务</h2>
+<p>这是由于 Tailscale 机制决定的。</p>
+<p>tailscale 只会在需要与 peer 建立连接的时候才会尝试打洞，而且最开始的流量一定是会经过 DERP 中转服务器。</p>
+<p>优点：懒加载机制无需预先维护与其他节点的任何打洞连接，无需预先维护任何状态。</p>
+<p>缺点：每次通过 tailscale 创建虚拟连接时，初始所创建的连接其延迟很高，这会极大的影响使用体验；tailscale 极其依赖中继节点。</p>
+<p>当然官方是有提供默认的一系列 Derp 服务器，可以通过 <code>tailscale netcheck</code>  来查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">Report:</span><br><span class="line">        * UDP: <span class="literal">true</span></span><br><span class="line">        * IPv4: <span class="built_in">yes</span>, xxxx</span><br><span class="line">        * IPv6: no, but OS has support</span><br><span class="line">        * MappingVariesByDestIP: <span class="literal">true</span></span><br><span class="line">        * HairPinning: <span class="literal">false</span></span><br><span class="line">        * PortMapping:</span><br><span class="line">        * CaptivePortal: <span class="literal">false</span></span><br><span class="line">        * Nearest DERP: lax</span><br><span class="line">        * DERP latency:</span><br><span class="line">                - lax: 165.8ms (Los Angeles)</span><br><span class="line">                - sfo: 173ms   (San Francisco)</span><br><span class="line">                - tok: 173.8ms (Tokyo)</span><br><span class="line">                - sea: 175.6ms (Seattle)</span><br><span class="line">                - den: 181.5ms (Denver)</span><br><span class="line">                - dfw: 184.1ms (Dallas)</span><br><span class="line">                - ord: 200.7ms (Chicago)</span><br><span class="line">                - hkg: 207.5ms (Hong Kong)</span><br><span class="line">                - hnl: 209ms   (Honolulu)</span><br><span class="line">                - nyc: 213.5ms (New York City)</span><br><span class="line">                - mia: 220.6ms (Miami)</span><br><span class="line">                - iad: 223.6ms (Ashburn)</span><br><span class="line">                - par: 229ms   (Paris)</span><br><span class="line">                - lhr: 230.2ms (London)</span><br><span class="line">                - tor: 231.1ms (Toronto)</span><br><span class="line">                - sin: 234.8ms (Singapore)</span><br><span class="line">                - fra: 238.3ms (Frankfurt)</span><br><span class="line">                - ams: 248.9ms (Amsterdam)</span><br><span class="line">                - nue: 253.4ms (Nuremberg)</span><br><span class="line">                - mad: 266.3ms (Madrid)</span><br><span class="line">                - waw: 266.6ms (Warsaw)</span><br><span class="line">                - blr: 271.1ms (Bangalore)</span><br><span class="line">                - syd: 322ms   (Sydney)</span><br><span class="line">                - sao: 330.8ms (São Paulo)</span><br><span class="line">                - dbi: 348.1ms (Dubai)</span><br><span class="line">                - jnb: 384.2ms (Johannesburg)</span><br><span class="line">                - nai: 393.9ms (Nairobi)</span><br></pre></td></tr></table></figure>
+<p>可以看到基本上都是国外的服务器，这也就意味着，如果打洞失败，走 derp 服务器中转的话，会导致延迟非常之高。</p>
+<h2 id="搭建derp服务"><a class="markdownIt-Anchor" href="#搭建derp服务">#</a> 搭建 Derp 服务</h2>
+<p>本次搭建教程不基于网上的 Docker 版本，是基于官网的文档来进行搭建的。</p>
+<h3 id="环境准备"><a class="markdownIt-Anchor" href="#环境准备">#</a> 环境准备</h3>
+<p>基于 Tailscale 官方提供的<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1118/custom-derp-servers#why-run-your-own-derp-server">文档</a></p>
+<p>以下为一些硬性要求：</p>
+<ul>
+<li>
+<p>需要能够公网访问。这是为了让各个 Tailscale 节点可以直接访问到该 DERP 服务器</p>
+</li>
+<li>
+<p>需要运行 HTTPS 服务。本质上是为了在传输数据给 DERP 服务器时数据可以通过 TLS 加密。</p>
+</li>
+<li>
+<p>分配 80 端口来运行 HTTP 服务。</p>
+</li>
+<li>
+<p>需要额外暴露两个端口来运行 HTTPS 和 STUN 服务。</p>
+</li>
+<li>
+<p>必须允许 ICMP 流量的出入。</p>
+</li>
+</ul>
+<h3 id="官方安装"><a class="markdownIt-Anchor" href="#官方安装">#</a> 官方安装</h3>
+<p>官方提供的安装步骤就两步</p>
+<ol>
+<li>安装 Derper 程序</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go install tailscale.com/cmd/derper@latest</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>运行 Derper</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo derper --hostname=your-hostname.com</span><br></pre></td></tr></table></figure>
+<h3 id="安装运行依赖"><a class="markdownIt-Anchor" href="#安装运行依赖">#</a> 安装运行依赖</h3>
+<p>当然大多数干净的系统执行第一步就会执行不下去，这个是需要依赖 Go 环境，而 tailscale 的 Go 版本总是会依赖最新的 Go。</p>
+<p>以下提供当前的 <code>go 1.23.4</code>  的安装，其他版本或者更新的版本可以到 Go 官网下载安装：<a target="_blank" rel="noopener" href="https://go.dev/doc/install">https://go.dev/doc/install</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://go.dev/dl/go1.23.4.linux-amd64.tar.gz</span><br><span class="line"><span class="built_in">rm</span> -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.23.4.linux-amd64.tar.gz</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/local/go/bin</span><br><span class="line">go version</span><br><span class="line">go <span class="built_in">env</span> -w GOPROXY=https://goproxy.cn,direct</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: Changes made to a profile file may not apply until the next time you log into your computer. To apply the changes immediately, just run the shell commands directly or execute them from the profile using a command such as source $HOME/.profile.</p>
+</blockquote>
+<p>上面执行完，就安装好了 Go 环境，同时指定了 Go 代理地址，因为阿里云服务器下载 github 包大概率会失败。</p>
+<h3 id="用ip代替域名的原理技术细节可以不看"><a class="markdownIt-Anchor" href="#用ip代替域名的原理技术细节可以不看">#</a> 用 IP 代替域名的原理（技术细节，可以不看）</h3>
+<p>因为 Derper 需要指定证书，并且验证证书，因此需要一个域名来启动 Derper。</p>
+<p>而看到很多博主教程中是修改了 Derper 的源码后重新编译来跳过域名验证，从而实现 IP 启动。</p>
+<p>我看了下 Derper 的源码，发现新版本中并不需要这样处理了。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *manualCertManager)</span></span> getCertificate(hi *tls.ClientHelloInfo) (*tls.Certificate, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> hi.ServerName != m.hostname &amp;&amp; !m.noHostname &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">&quot;cert mismatch with hostname: %q&quot;</span>, hi.ServerName)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Return a shallow copy of the cert so the caller can append to its</span></span><br><span class="line">	<span class="comment">// Certificate field.</span></span><br><span class="line">	certCopy := <span class="built_in">new</span>(tls.Certificate)</span><br><span class="line">	*certCopy = *m.cert</span><br><span class="line">	certCopy.Certificate = certCopy.Certificate[:<span class="built_in">len</span>(certCopy.Certificate):<span class="built_in">len</span>(certCopy.Certificate)]</span><br><span class="line">	<span class="keyword">return</span> certCopy, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Derper 源码中新增了  <code>&amp;&amp; !m.noHostname</code>  这样的一个逻辑判断可以绕过域名的检测。</p>
+<p>而这个 <code>noHostname</code>  参数则是在前面运行的 hostname 指定的 <code>derper --hostname=your-hostname.com</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> err := x509Cert.VerifyHostname(hostname); err != <span class="literal">nil</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">&quot;cert invalid for hostname %q: %w&quot;</span>, hostname, err)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> &amp;manualCertManager&#123;</span><br><span class="line">	cert:       &amp;cert,</span><br><span class="line">	hostname:   hostname,</span><br><span class="line">	noHostname: net.ParseIP(hostname) != <span class="literal">nil</span>,</span><br><span class="line">&#125;, <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p>也就是说，只要我们提供的证书能够通过 <code>x509Cert.VerifyHostname</code>  那么我们就能直接传一个 IP 作为 <code>hostname</code></p>
+<h3 id="用ip代替域名"><a class="markdownIt-Anchor" href="#用ip代替域名">#</a> 用 IP 代替域名</h3>
+<p>只要用 IP 生成一个自签名证书即可，如果直接尝试 <code>openssl x509</code>  可不太行。</p>
+<p>需要将 IP 地址作为证书的 Subject Alternative Name (SAN) 添加到证书中。</p>
+<p>因为前面已经安装了 Go 的运行环境了，所以我这里提供一个 Go 版本的生成方案</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/certdir</span><br><span class="line">cd ~/certdir</span><br></pre></td></tr></table></figure>
+<p>将下面这段代码复制， 然后 <code>vim main.go</code>  粘贴后改成你的 IP 保存。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;crypto/ecdsa&quot;</span></span><br><span class="line">	<span class="string">&quot;crypto/elliptic&quot;</span></span><br><span class="line">	<span class="string">&quot;crypto/rand&quot;</span></span><br><span class="line">	<span class="string">&quot;crypto/x509&quot;</span></span><br><span class="line">	<span class="string">&quot;crypto/x509/pkix&quot;</span></span><br><span class="line">	<span class="string">&quot;encoding/pem&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">	<span class="string">&quot;math/big&quot;</span></span><br><span class="line">	<span class="string">&quot;net&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// IP地址，替换为你自己的服务器实际IP</span></span><br><span class="line">	ip := <span class="string">&quot;127.0.0.1&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 生成密钥对</span></span><br><span class="line">	priv, err := ecdsa.GenerateKey(elliptic.P384(), rand.Reader)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;Failed to generate private key: %v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 生成证书模板</span></span><br><span class="line">	template := x509.Certificate&#123;</span><br><span class="line">		SerialNumber:          big.NewInt(<span class="number">12345</span>),</span><br><span class="line">		Subject:               pkix.Name&#123;Organization: []<span class="type">string</span>&#123;<span class="string">&quot;Example Org&quot;</span>&#125;&#125;,</span><br><span class="line">		NotBefore:             time.Now(),</span><br><span class="line">		NotAfter:              time.Now().Add(<span class="number">365</span> * <span class="number">24</span> * time.Hour * <span class="number">100</span>),</span><br><span class="line">		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,</span><br><span class="line">		ExtKeyUsage:           []x509.ExtKeyUsage&#123;x509.ExtKeyUsageServerAuth&#125;,</span><br><span class="line">		BasicConstraintsValid: <span class="literal">true</span>,</span><br><span class="line">		DNSNames:              []<span class="type">string</span>&#123;ip&#125;,</span><br><span class="line">		IPAddresses:           []net.IP&#123;net.ParseIP(ip)&#125;, <span class="comment">// 指定 IP 地址</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 使用私钥签发证书</span></span><br><span class="line">	certDER, err := x509.CreateCertificate(rand.Reader, &amp;template, &amp;template, &amp;priv.PublicKey, priv)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;Failed to create certificate: %v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 保存证书文件</span></span><br><span class="line">	certFile, err := os.Create(fmt.Sprintf(<span class="string">&quot;%s.crt&quot;</span>, ip))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;Failed to create cert file: %v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> certFile.Close()</span><br><span class="line">	err = pem.Encode(certFile, &amp;pem.Block&#123;Type: <span class="string">&quot;CERTIFICATE&quot;</span>, Bytes: certDER&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;Failed to write cert to file: %v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 保存私钥文件</span></span><br><span class="line">	keyFile, err := os.Create(fmt.Sprintf(<span class="string">&quot;%s.key&quot;</span>, ip))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;Failed to create key file: %v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> keyFile.Close()</span><br><span class="line">	privBytes, err := x509.MarshalECPrivateKey(priv)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;Failed to marshal private key: %v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	err = pem.Encode(keyFile, &amp;pem.Block&#123;Type: <span class="string">&quot;EC PRIVATE KEY&quot;</span>, Bytes: privBytes&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;Failed to write key to file: %v&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">&quot;Certificate and key saved successfully!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在执行 <code>go run main.go</code></p>
+<p>就会在当前目录下生成以你填的 IP 命名的 <code>.crt</code>  和 <code>.key</code>  密钥</p>
+<p>这时，官方的第二步就可以改成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo derper -a :8888 -http-port -1 -stun-port 8889 -hostname x.x.x.x --certmode manual -certdir ~/certdir</span><br></pre></td></tr></table></figure>
+<p>参数解释：</p>
+<p><code>x.x.x.x</code>  换成你的 IP</p>
+<p><code>-1</code>  表示禁用了 http 的端口</p>
+<p><code>8888</code>  为 https 的端口</p>
+<p><code>8889</code>  为 stun 端口</p>
+<p>当你能看到下面这段日志输出，就说明启动成功了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2025/01/11 11:36:28 derper: serving on :8888 with TLS</span><br><span class="line">2025/01/11 11:36:28 running STUN server on [::]:8889</span><br></pre></td></tr></table></figure>
+<p>不要结束服务，此时你自己的电脑或者需要连接到 tailscale 的机器上输入 <code>curl --insecure &quot;https://x.x.x.x:8888&quot;</code></p>
+<p>看到下面这串输出，就说明 derp 搭建成功了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;&lt;body&gt;</span><br><span class="line">&lt;h1&gt;DERP&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">  This is a &lt;a href=&quot;https://tailscale.com/&quot;&gt;Tailscale&lt;/a&gt; DERP server.</span><br><span class="line">&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;</span><br><span class="line">  It provides STUN, interactive connectivity establishment, and relaying of end-to-end encrypted traffic</span><br><span class="line">  for Tailscale clients.</span><br><span class="line">&lt;/p&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="注册自己的derp服务到列表中"><a class="markdownIt-Anchor" href="#注册自己的derp服务到列表中">#</a> 注册自己的 Derp 服务到列表中</h3>
+<h4 id="如果你用的tailscale官方服务"><a class="markdownIt-Anchor" href="#如果你用的tailscale官方服务">#</a> 如果你用的 tailscale 官方服务，</h4>
+<p>到 <a target="_blank" rel="noopener" href="https://login.tailscale.com/admin/acls/file">https://login.tailscale.com/admin/acls/file</a> 添加你的 Derp 服务器，这里给出参考配置</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;derpMap&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Regions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;901&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;RegionID&quot;</span><span class="punctuation">:</span> <span class="number">901</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;RegionCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ali-sz&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;RegionName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Aliyun Shenzhen&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Nodes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;901a&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;RegionID&quot;</span><span class="punctuation">:</span> <span class="number">901</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;DERPPort&quot;</span><span class="punctuation">:</span> <span class="number">8888</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;STUNPort&quot;</span><span class="punctuation">:</span> <span class="number">8889</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;IPv4&quot;</span><span class="punctuation">:</span> <span class="string">&quot;x.x.x.x&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;InsecureForTests&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="如果你用的headscale"><a class="markdownIt-Anchor" href="#如果你用的headscale">#</a> 如果你用的 Headscale</h4>
+<p>你可以参考我上篇关于 headscale 搭建的部分，配置文件默认在这个目录 <code>/etc/headscale/config.yaml</code></p>
+<p>修改其中的 urls 部分</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/headscale/config.yaml</span></span><br><span class="line"><span class="attr">derp:</span></span><br><span class="line">  <span class="comment"># List of externally available DERP maps encoded in JSON</span></span><br><span class="line">  <span class="attr">urls:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">https://controlplane.tailscale.com/derpmap/default</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">http://xxxx/derp.json</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Locally available DERP map files encoded in YAML</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># This option is mostly interesting for people hosting</span></span><br><span class="line">  <span class="comment"># their own DERP servers:</span></span><br><span class="line">  <span class="comment"># https://tailscale.com/kb/1118/custom-derp-servers/</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># paths:</span></span><br><span class="line">  <span class="comment">#   - /etc/headscale/derp-example.yaml</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># If enabled, a worker will be set up to periodically</span></span><br><span class="line">  <span class="comment"># refresh the given sources and update the derpmap</span></span><br><span class="line">  <span class="comment"># will be set up.</span></span><br><span class="line">  <span class="attr">auto_update_enabled:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># How often should we check for DERP updates?</span></span><br><span class="line">  <span class="attr">update_frequency:</span> <span class="string">24h</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><code>http://xxxx.com/derp.json</code>  这个路径可以修改你 derp 服务器能够访问的地址，自己搭个 nginx 或者放到 oss 上之类的。</p>
+<p>返回的内容如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Regions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;901&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;RegionID&quot;</span><span class="punctuation">:</span> <span class="number">901</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;RegionCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ali-sz&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;RegionName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Aliyun Shenzhen&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;Nodes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;901a&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;RegionID&quot;</span><span class="punctuation">:</span> <span class="number">901</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;DERPPort&quot;</span><span class="punctuation">:</span> <span class="number">8888</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;STUNPort&quot;</span><span class="punctuation">:</span> <span class="number">8889</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;IPv4&quot;</span><span class="punctuation">:</span> <span class="string">&quot;x.x.x.x&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;InsecureForTests&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="检查自定义derp是否生效"><a class="markdownIt-Anchor" href="#检查自定义derp是否生效">#</a> 检查自定义 Derp 是否生效</h3>
+<p>检查你的客户端是否能够正常检索到自己的 Derp 服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">tailscale netcheck</span><br><span class="line"></span><br><span class="line">Report:</span><br><span class="line">        * UDP: <span class="literal">true</span></span><br><span class="line">        * IPv4: <span class="built_in">yes</span>, xxxxx</span><br><span class="line">        * IPv6: no, but OS has support</span><br><span class="line">        * MappingVariesByDestIP: <span class="literal">true</span></span><br><span class="line">        * HairPinning: <span class="literal">false</span></span><br><span class="line">        * PortMapping:</span><br><span class="line">        * CaptivePortal: <span class="literal">false</span></span><br><span class="line">        * Nearest DERP: Aliyun Shenzhen</span><br><span class="line">        * DERP latency:</span><br><span class="line">                - ali-sz: 13ms    (Aliyun Shenzhen)</span><br><span class="line">                - lax: 165.8ms (Los Angeles)</span><br><span class="line">                - sfo: 173ms   (San Francisco)</span><br><span class="line">                - tok: 173.8ms (Tokyo)</span><br><span class="line">                - sea: 175.6ms (Seattle)</span><br><span class="line">                - den: 181.5ms (Denver)</span><br><span class="line">                - den: 181.5ms (Denver)</span><br><span class="line">                - den: 181.5ms (Denver)</span><br><span class="line">                - den: 181.5ms (Denver)</span><br><span class="line">                - den: 181.5ms (Denver)</span><br><span class="line">                - dfw: 184.1ms (Dallas)</span><br><span class="line">                - ord: 200.7ms (Chicago)</span><br><span class="line">                - den: 181.5ms (Denver)</span><br><span class="line">                - dfw: 184.1ms (Dallas)</span><br><span class="line">                - ord: 200.7ms (Chicago)</span><br><span class="line">                - hkg: 207.5ms (Hong Kong)</span><br><span class="line">                - hnl: 209ms   (Honolulu)</span><br><span class="line">                - nyc: 213.5ms (New York City)</span><br><span class="line">                - mia: 220.6ms (Miami)</span><br><span class="line">                - iad: 223.6ms (Ashburn)</span><br><span class="line">                - par: 229ms   (Paris)</span><br><span class="line">                - lhr: 230.2ms (London)</span><br><span class="line">                - tor: 231.1ms (Toronto)</span><br><span class="line">                - sin: 234.8ms (Singapore)</span><br><span class="line">                - fra: 238.3ms (Frankfurt)</span><br><span class="line">                - ams: 248.9ms (Amsterdam)</span><br><span class="line">                - nue: 253.4ms (Nuremberg)</span><br><span class="line">                - mad: 266.3ms (Madrid)</span><br><span class="line">                - waw: 266.6ms (Warsaw)</span><br><span class="line">                - blr: 271.1ms (Bangalore)</span><br><span class="line">                - syd: 322ms   (Sydney)</span><br><span class="line">                - sao: 330.8ms (São Paulo)</span><br><span class="line">                - dbi: 348.1ms (Dubai)</span><br><span class="line">                - jnb: 384.2ms (Johannesburg)</span><br><span class="line">                - nai: 393.9ms (Nairobi)</span><br></pre></td></tr></table></figure>
+<h3 id="derp服务安全"><a class="markdownIt-Anchor" href="#derp服务安全">#</a> Derp 服务安全</h3>
+<p>前面跑起来的 Derp 服务，其他人只要知道了 IP 和端口是可以访问的。</p>
+<p>因此需要额外进行一些处理。</p>
+<p>你需要在 Derp 服务器上安装 Tailscale 客户端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://tailscale.com/install.sh | sh</span><br></pre></td></tr></table></figure>
+<p>然后注册到你的 Tailscale 中</p>
+<p>之后在 Derper 启动时添加参数 <code> --verify-clients</code>  这个只允许你的 Tailscale 中的机器才能访问。</p>
+<p>完整的命令如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">derper -a :8888 -http-port -1 -stun-port 8889 -hostname x.x.x.x --certmode manual -certdir ~/certdir --verify-clients</span><br></pre></td></tr></table></figure>
+<p>最后可以将 Derper 注册成服务，自动启动。</p>
+<p>ubuntu 参考</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/systemd/system/derp.service</span></span><br><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=Derper</span><br><span class="line"><span class="attr">After</span>=network.target</span><br><span class="line"><span class="attr">Wants</span>=network.target</span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">User</span>=root</span><br><span class="line"><span class="attr">Restart</span>=always</span><br><span class="line"><span class="attr">ExecStart</span>=derper -a :<span class="number">8888</span> -http-port -<span class="number">1</span> -stun-port <span class="number">8889</span> -hostname x.x.x.x --certmode manual -certdir ~/certdir --verify-clients</span><br><span class="line"><span class="attr">RestartPreventExitStatus</span>=<span class="number">1</span></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 重新加载Systemd配置</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line"></span><br><span class="line"># 启动服务并设置开机自启动</span><br><span class="line">sudo systemctl start derp</span><br><span class="line">sudo systemctl enable derp</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://bigorange.work">Antengye</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://bigorange.work/p/88ab7236/">https://bigorange.work/p/88ab7236/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://bigorange.work" target="_blank">Antengye's Blog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/images/cover.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqusjs-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81derp%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text"> 为什么需要 Derp 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BAderp%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.</span> <span class="toc-text"> 搭建 Derp 服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">2.1.</span> <span class="toc-text"> 环境准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text"> 官方安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C%E4%BE%9D%E8%B5%96"><span class="toc-number">2.3.</span> <span class="toc-text"> 安装运行依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8ip%E4%BB%A3%E6%9B%BF%E5%9F%9F%E5%90%8D%E7%9A%84%E5%8E%9F%E7%90%86%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82%E5%8F%AF%E4%BB%A5%E4%B8%8D%E7%9C%8B"><span class="toc-number">2.4.</span> <span class="toc-text"> 用 IP 代替域名的原理（技术细节，可以不看）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8ip%E4%BB%A3%E6%9B%BF%E5%9F%9F%E5%90%8D"><span class="toc-number">2.5.</span> <span class="toc-text"> 用 IP 代替域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E8%87%AA%E5%B7%B1%E7%9A%84derp%E6%9C%8D%E5%8A%A1%E5%88%B0%E5%88%97%E8%A1%A8%E4%B8%AD"><span class="toc-number">2.6.</span> <span class="toc-text"> 注册自己的 Derp 服务到列表中</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%94%A8%E7%9A%84tailscale%E5%AE%98%E6%96%B9%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.6.1.</span> <span class="toc-text"> 如果你用的 tailscale 官方服务，</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%94%A8%E7%9A%84headscale"><span class="toc-number">2.6.2.</span> <span class="toc-text"> 如果你用的 Headscale</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E8%87%AA%E5%AE%9A%E4%B9%89derp%E6%98%AF%E5%90%A6%E7%94%9F%E6%95%88"><span class="toc-number">2.7.</span> <span class="toc-text"> 检查自定义 Derp 是否生效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#derp%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8"><span class="toc-number">2.8.</span> <span class="toc-text"> Derp 服务安全</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By Antengye</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">厉害啊，看完了</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.3.0"></script><script src="/js/main.js?v=5.3.0"></script><script src="/js/tw_cn.js?v=5.3.0"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'== 'shuoshuo'
+  const dqOption = null
+
+  const destroyDisqusjs = () => {
+    disqusjs.destroy()
+    window.disqusjs = null
+  }
+
+  const themeChange = (el, path) => {
+    destroyDisqusjs()
+    initDisqusjs(el, path)
+  }
+
+  const initDisqusjs = (el = document, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyDisqusjs = () => {
+        destroyDisqusjs()
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    disqusjs = new DisqusJS({
+      shortname: 'githubio',
+      title: '在阿里云搭建无域名的tailscale的Derp服务',
+      apikey: '2Pv8lPyzXtOaUWQmTrCMn2N9HeBip0BUtalpE5p34SGDeneDXiLJfyrv0sYGMmtg',
+      ...dqOption,
+      identifier: isShuoshuo ? path : (dqOption && dqOption.identifier) || '/p/88ab7236/',
+      url: isShuoshuo ? location.origin + path : (dqOption && dqOption.url) || 'https://bigorange.work/p/88ab7236/'
+    })
+
+    disqusjs.render(el.querySelector('#disqusjs-wrap'))
+
+    btf.addGlobalFn('themeChange', () => themeChange(el, path), 'disqusjs')
+  }
+
+  const loadDisqusjs = async(el, path) => {
+    if (window.disqusJsLoad) initDisqusjs(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/disqusjs@3.0.2/dist/browser/styles/disqusjs.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/disqusjs@3.0.2/dist/browser/disqusjs.es2015.umd.min.js')
+      initDisqusjs(el, path)
+      window.disqusJsLoad = true
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqusjs-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=githubio&api_key=2Pv8lPyzXtOaUWQmTrCMn2N9HeBip0BUtalpE5p34SGDeneDXiLJfyrv0sYGMmtg&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Disqusjs' === 'Disqusjs'
+      ? window.shuoshuoComment = { loadComment: loadDisqusjs }
+      : window.loadOtherComment = loadDisqusjs
+    return
+  }
+
+  if ('Disqusjs' === 'Disqusjs' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqusjs-wrap'), loadDisqusjs)
+    else {
+      loadDisqusjs()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqusjs
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

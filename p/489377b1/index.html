@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>如何成为一名监督帕鲁的服主 | Antengye's Blog</title><meta name="author" content="Antengye"><meta name="copyright" content="Antengye"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="要成为一名合格的监督帕鲁的服主，要先从搭建帕鲁服务器开始">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何成为一名监督帕鲁的服主">
+<meta property="og:url" content="https://bigorange.work/p/489377b1/index.html">
+<meta property="og:site_name" content="Antengye&#39;s Blog">
+<meta property="og:description" content="要成为一名合格的监督帕鲁的服主，要先从搭建帕鲁服务器开始">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292117030.png">
+<meta property="article:published_time" content="2024-02-29T13:15:36.000Z">
+<meta property="article:modified_time" content="2025-01-10T05:58:17.538Z">
+<meta property="article:author" content="Antengye">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="game">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292117030.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "如何成为一名监督帕鲁的服主",
+  "url": "https://bigorange.work/p/489377b1/",
+  "image": "https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292117030.png",
+  "datePublished": "2024-02-29T13:15:36.000Z",
+  "dateModified": "2025-01-10T05:58:17.538Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Antengye",
+      "url": "https://bigorange.work"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/images/logo.png"><link rel="canonical" href="https://bigorange.work/p/489377b1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="codeva-12PXeNCJS8"/><link rel="stylesheet" href="/css/index.css?v=5.3.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0618772867f22967ce9ceb04f068e047";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Antengye","link":"链接: ","source":"来源: Antengye's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '如何成为一名监督帕鲁的服主',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页 | Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸 | Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签 | Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类 | Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292117030.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/images/logo.png" alt="Logo"><span class="site-name">Antengye's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">如何成为一名监督帕鲁的服主</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页 | Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸 | Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签 | Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类 | Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">如何成为一名监督帕鲁的服主</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-02-29T13:15:36.000Z" title="发表于 2024-02-29 21:15:36">2024-02-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-10T05:58:17.538Z" title="更新于 2025-01-10 13:58:17">2025-01-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="前言"><a class="markdownIt-Anchor" href="#前言">#</a> 前言</h2>
+<p>帕鲁刚推出没多久，就有朋友告诉了我</p>
+<p>咋一看，这不宝可梦吗，作为<s>口袋妖怪</s>宝可梦玩家，果断开玩。</p>
+<p>这不，最近跟朋友们一起玩的帕鲁服务器也已经将近 2000 个游戏日了。</p>
+<p><img src="https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292123546.png" alt="服务器截图"></p>
+<p>作为 “腐竹”，为了能够提供给朋友最佳的游戏体验，自然是要好好维护好帕鲁服务器的。</p>
+<p>以下的内容应该可以初步帮助新手腐竹们搭建并管理自己的独立服务器。</p>
+<h2 id="服务器的抉择"><a class="markdownIt-Anchor" href="#服务器的抉择">#</a> 服务器的抉择</h2>
+<p>考虑到有个朋友是晚上 6 点起床，不知道几点睡觉的 “神人”</p>
+<p>所以服务器的就要优先考虑 24 小时运行了。</p>
+<p>一般来说服务器就是考虑两种</p>
+<h3 id="公有云服务器"><a class="markdownIt-Anchor" href="#公有云服务器">#</a> 公有云服务器</h3>
+<p>游戏服务器，可以无脑直接上<a target="_blank" rel="noopener" href="https://curl.qcloud.com/onNGAwX7">腾讯云</a>、<a target="_blank" rel="noopener" href="https://www.aliyun.com/daily-act/ecs/activity_selection?userCode=vipdg4bo">阿里云</a>等购买即可。</p>
+<p>优点在于，这类服务器可以直接提供一个公共 IP 供朋友直接访问。</p>
+<p>缺点就是服务器的价格摆在那。</p>
+<p>对于新手来说建议用公有云。</p>
+<h3 id="私有服务器"><a class="markdownIt-Anchor" href="#私有服务器">#</a> 私有服务器</h3>
+<p>诸如：自己的电脑、私人服务器等。</p>
+<p>优缺点和上面就是反着来了。</p>
+<p>我自己选择的是用私人服务器 + tailscale 的内网穿透模式。好处是省了一笔费用，坏处是需要一定的动手能力，tailscale 的搭建可以看上一篇文章。</p>
+<h3 id="配置"><a class="markdownIt-Anchor" href="#配置">#</a> 配置</h3>
+<p>至于服务的配置方面，每个游戏的需求量不一样。</p>
+<p>比如帕鲁的服务端资源需求：<a target="_blank" rel="noopener" href="https://tech.palworldgame.com/getting-started/requirements">https://tech.palworldgame.com/getting-started/requirements</a></p>
+<p>最低建议是 4 核 8G（预计支撑 3-4 人）。但是帕鲁目前的优化很差，所以还得及时重启，不然会有爆内存的风险。</p>
+<h2 id="服务端安装"><a class="markdownIt-Anchor" href="#服务端安装">#</a> 服务端安装</h2>
+<p>在纠结完服务器后，就可以动手进行服务端的安装了。</p>
+<p>虽然帕鲁官方提供了安装服务端的流程，而且也不算复杂。</p>
+<p>但是考虑到后期可能存在的服务器迁移情况，还是建议用上 docker。</p>
+<h3 id="docker"><a class="markdownIt-Anchor" href="#docker">#</a> Docker</h3>
+<p>简单解释一下 docker 的用处：整合游戏服务器需要的环境，一条命令启动。</p>
+<p>Docker 的安装方式有很多，这里给到 Docker 官方的一键脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">sudo sh get-docker.sh --mirror Aliyun</span><br></pre></td></tr></table></figure>
+<h3 id="docker-compose"><a class="markdownIt-Anchor" href="#docker-compose">#</a> Docker-compose</h3>
+<p>Docker-compose 又是干什么的？<s>编排巴拉巴拉的…</s></p>
+<p>其实目前阶段只需要知道，它就是简化 docker 的命令，实现：一条简短的命令启动。</p>
+<p>现在的 docker 安装的时候一般都带上了 Docker-compose</p>
+<p>可以输入命令 <code>docker compose --help</code>  测试下是否有了</p>
+<h3 id="部署启动"><a class="markdownIt-Anchor" href="#部署启动">#</a> 部署 + 启动</h3>
+<p>找一个目录如 <code>server</code> ，创建好一个文件： <code>docker-compose.yml</code></p>
+<p>把下面这段内容填进去</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.9&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">palworld-dedicated-server:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">palworld-dedicated-server</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">jammsen/palworld-dedicated-server:latest</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">target:</span> <span class="number">8211</span> <span class="comment"># Gamerserver port inside of the container</span></span><br><span class="line">        <span class="attr">published:</span> <span class="number">8211</span> <span class="comment"># Gamerserver port on your host</span></span><br><span class="line">        <span class="attr">protocol:</span> <span class="string">udp</span></span><br><span class="line">        <span class="attr">mode:</span> <span class="string">host</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">target:</span> <span class="number">25575</span> <span class="comment"># RCON port inside of the container</span></span><br><span class="line">        <span class="attr">published:</span> <span class="number">25575</span> <span class="comment"># RCON port on your host</span></span><br><span class="line">        <span class="attr">protocol:</span> <span class="string">tcp</span></span><br><span class="line">        <span class="attr">mode:</span> <span class="string">host</span></span><br><span class="line">    <span class="attr">env_file:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./default.env</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./game:/palworld</span></span><br></pre></td></tr></table></figure>
+<p>现在就可以执行<strong>一条简短的命令启动</strong>： <code>docker compose up -d</code></p>
+<p>什么？没启动起来。</p>
+<p>噢，因为有这两个配置的原因</p>
+<pre><code>env_file:
+  - ./default.env
+volumes:
+  - ./game:/palworld
+</code></pre>
+<p>后面解释，先在 <code>docker-compose.yml</code>  同级目录下创建</p>
+<p>default.env 文件，复制粘贴进去。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Container-setttings</span></span><br><span class="line"><span class="attr">PUID</span>=<span class="number">1000</span></span><br><span class="line"><span class="attr">PGID</span>=<span class="number">1000</span></span><br><span class="line"><span class="attr">TZ</span>=Europe/Berlin</span><br><span class="line"><span class="comment"># SteamCMD-settings</span></span><br><span class="line"><span class="attr">ALWAYS_UPDATE_ON_START</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">STEAMCMD_VALIDATE_FILES</span>=<span class="literal">true</span></span><br><span class="line"><span class="comment"># Backup-settings</span></span><br><span class="line"><span class="attr">BACKUP_ENABLED</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">BACKUP_CRON_EXPRESSION</span>=<span class="number">0</span> * * * *</span><br><span class="line"><span class="attr">BACKUP_RETENTION_POLICY</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">BACKUP_RETENTION_AMOUNT_TO_KEEP</span>=<span class="number">72</span></span><br><span class="line"><span class="comment"># Restart-settings</span></span><br><span class="line"><span class="attr">RESTART_ENABLED</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">RESTART_DEBUG_OVERRIDE</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">RESTART_CRON_EXPRESSION</span>=<span class="string">&quot;0 18 * * *&quot;</span></span><br><span class="line"><span class="comment"># RCON-Playerdection - NEEDS RCON ENABLED!</span></span><br><span class="line"><span class="attr">RCON_PLAYER_DETECTION</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">RCON_PLAYER_DETECTION_STARTUP_DELAY</span>=<span class="number">60</span></span><br><span class="line"><span class="attr">RCON_PLAYER_DETECTION_CHECK_INTERVAL</span>=<span class="number">15</span></span><br><span class="line"><span class="comment"># Webhook-settings</span></span><br><span class="line"><span class="attr">WEBHOOK_ENABLED</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">WEBHOOK_DEBUG_ENABLED</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">WEBHOOK_URL</span>=<span class="string">&quot;YOUR-URL-IN-HERE&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_CONTENT_TITLE</span>=<span class="string">&quot;Status update&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_INFO_TITLE</span>=<span class="string">&quot;Info&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_INFO_DESCRIPTION</span>=<span class="string">&quot;This is an info from the server&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_INFO_COLOR</span>=<span class="string">&quot;2849520&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_INSTALL_TITLE</span>=<span class="string">&quot;Installing server&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_INSTALL_DESCRIPTION</span>=<span class="string">&quot;Server is being installed&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_INSTALL_COLOR</span>=<span class="string">&quot;2849520&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_RESTART_TITLE</span>=<span class="string">&quot;Server is restarting soon&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_RESTART_DESCRIPTION</span>=<span class="string">&quot;The gameserver is restarting in 15 minutes&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_RESTART_COLOR</span>=<span class="string">&quot;15593515&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_START_TITLE</span>=<span class="string">&quot;Server is starting&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_START_DESCRIPTION</span>=<span class="string">&quot;The gameserver is starting&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_START_COLOR</span>=<span class="string">&quot;2328576&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_STOP_TITLE</span>=<span class="string">&quot;Server has been stopped&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_STOP_DESCRIPTION</span>=<span class="string">&quot;The gameserver has been stopped&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_STOP_COLOR</span>=<span class="string">&quot;7413016&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_UPDATE_TITLE</span>=<span class="string">&quot;Updating server&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_UPDATE_DESCRIPTION</span>=<span class="string">&quot;Server is being updated&quot;</span></span><br><span class="line"><span class="attr">WEBHOOK_UPDATE_COLOR</span>=<span class="string">&quot;2849520&quot;</span></span><br><span class="line"><span class="comment"># Config-setting - Warning: Every setting below here will be affected!</span></span><br><span class="line"><span class="attr">SERVER_SETTINGS_MODE</span>=auto</span><br><span class="line"><span class="comment"># Gameserver-start-settings</span></span><br><span class="line"><span class="attr">MULTITHREAD_ENABLED</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">COMMUNITY_SERVER</span>=<span class="literal">true</span></span><br><span class="line"><span class="comment"># Engine.ini settings</span></span><br><span class="line"><span class="attr">NETSERVERMAXTICKRATE</span>=<span class="number">120</span></span><br><span class="line"><span class="comment"># PalWorldSettings.ini settings</span></span><br><span class="line"><span class="attr">DIFFICULTY</span>=None</span><br><span class="line"><span class="attr">DAYTIME_SPEEDRATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">NIGHTTIME_SPEEDRATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">EXP_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PAL_CAPTURE_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PAL_SPAWN_NUM_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PAL_DAMAGE_RATE_ATTACK</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PAL_DAMAGE_RATE_DEFENSE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PLAYER_DAMAGE_RATE_ATTACK</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PLAYER_DAMAGE_RATE_DEFENSE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PLAYER_STOMACH_DECREASE_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PLAYER_STAMINA_DECREACE_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PLAYER_AUTO_HP_REGENE_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PLAYER_AUTO_HP_REGENE_RATE_IN_SLEEP</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PAL_STOMACH_DECREACE_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PAL_STAMINA_DECREACE_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PAL_AUTO_HP_REGENE_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">PAL_AUTO_HP_REGENE_RATE_IN_SLEEP</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">BUILD_OBJECT_DAMAGE_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">BUILD_OBJECT_DETERIORATION_DAMAGE_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">COLLECTION_DROP_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">COLLECTION_OBJECT_HP_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">COLLECTION_OBJECT_RESPAWN_SPEED_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">ENEMY_DROP_ITEM_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">DEATH_PENALTY</span>=All</span><br><span class="line"><span class="attr">ENABLE_PLAYER_TO_PLAYER_DAMAGE</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">ENABLE_FRIENDLY_FIRE</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">ENABLE_INVADER_ENEMY</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">ACTIVE_UNKO</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">ENABLE_AIM_ASSIST_PAD</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">ENABLE_AIM_ASSIST_KEYBOARD</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">DROP_ITEM_MAX_NUM</span>=<span class="number">3000</span></span><br><span class="line"><span class="attr">DROP_ITEM_MAX_NUM_UNKO</span>=<span class="number">100</span></span><br><span class="line"><span class="attr">BASE_CAMP_MAX_NUM</span>=<span class="number">128</span></span><br><span class="line"><span class="attr">BASE_CAMP_WORKER_MAXNUM</span>=<span class="number">15</span></span><br><span class="line"><span class="attr">DROP_ITEM_ALIVE_MAX_HOURS</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">AUTO_RESET_GUILD_NO_ONLINE_PLAYERS</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">AUTO_RESET_GUILD_TIME_NO_ONLINE_PLAYERS</span>=<span class="number">72.000000</span></span><br><span class="line"><span class="attr">GUILD_PLAYER_MAX_NUM</span>=<span class="number">20</span></span><br><span class="line"><span class="attr">PAL_EGG_DEFAULT_HATCHING_TIME</span>=<span class="number">72.000000</span></span><br><span class="line"><span class="attr">WORK_SPEED_RATE</span>=<span class="number">1.000000</span></span><br><span class="line"><span class="attr">IS_MULTIPLAY</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">IS_PVP</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">CAN_PICKUP_OTHER_GUILD_DEATH_PENALTY_DROP</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">ENABLE_NON_LOGIN_PENALTY</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">ENABLE_FAST_TRAVEL</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">IS_START_LOCATION_SELECT_BY_MAP</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">EXIST_PLAYER_AFTER_LOGOUT</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">ENABLE_DEFENSE_OTHER_GUILD_PLAYER</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">COOP_PLAYER_MAX_NUM</span>=<span class="number">4</span></span><br><span class="line"><span class="attr">MAX_PLAYERS</span>=<span class="number">32</span></span><br><span class="line"><span class="attr">SERVER_NAME</span>=jammsen-docker-generated-<span class="comment">###RANDOM###</span></span><br><span class="line"><span class="attr">SERVER_DESCRIPTION</span>=Palworld-Dedicated-Server running in Docker by jammsen</span><br><span class="line"><span class="attr">ADMIN_PASSWORD</span>=adminPasswordHere</span><br><span class="line"><span class="attr">SERVER_PASSWORD</span>=serverPasswordHere</span><br><span class="line"><span class="attr">PUBLIC_PORT</span>=<span class="number">8211</span></span><br><span class="line"><span class="attr">PUBLIC_IP</span>=</span><br><span class="line"><span class="attr">RCON_ENABLED</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">RCON_PORT</span>=<span class="number">25575</span></span><br><span class="line"><span class="attr">REGION</span>=</span><br><span class="line"><span class="attr">USEAUTH</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">BAN_LIST_URL</span>=https://api.palworldgame.com/api/banlist.txt</span><br><span class="line"><span class="attr">SHOW_PLAYER_LIST</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>再创建一个空的 game 目录。</p>
+<p>此时，再次执行命令： <code>docker compose up -d &amp;&amp; docker compose logs -f </code></p>
+<p>观察一下当前日志，初次启动会下载服务端文件比较耗时。</p>
+<p>当看到这样的内容出来，就说启动成功</p>
+<p><img src="https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402291438622.png" alt="帕鲁服务端启动完成"></p>
+<p>可以按 ctrl+c 结束日志查看。</p>
+<p>完整目录结构如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- server</span><br><span class="line">  - docker-compose.yml</span><br><span class="line">  - default.env</span><br><span class="line">  - game</span><br></pre></td></tr></table></figure>
+<p><code>docker compose</code>  相关命令都需要在 <code>server</code>  目录下执行</p>
+<h3 id="云服务器策略放行"><a class="markdownIt-Anchor" href="#云服务器策略放行">#</a> 云服务器策略放行</h3>
+<p>如果你是用云服务器，记得要在控制台的安全组上添加</p>
+<p>8211(<strong>UDP</strong>) 和 25575 (<strong>TCP</strong>)</p>
+<p>两条规则。<strong>注意协议！！！</strong></p>
+<p>附阿里云的添加方法：</p>
+<p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/7096051661/p128550.gif" alt="添加安全组规则"></p>
+<p>附腾讯云的添加方法：</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/213/39740">https://cloud.tencent.com/document/product/213/39740</a></p>
+<p>来源选： <code>IP 地址或 CIDR 段 </code>  填： <code>0.0.0.0/0</code></p>
+<p>协议端口：</p>
+<p>UDP:8211</p>
+<p>TCP:25575</p>
+<p>以上步骤做完，就可以输入 <code>服务器IP:8211</code>  访问这个属于自己服务器了。</p>
+<p><img src="https://tech.palworldgame.com/assets/images/connect-1c10ce87f46b3bdad1b46be1b25f0807.jpg" alt="connect"></p>
+<p>关服命令： <code>docker compose down</code></p>
+<h2 id="服务端管理"><a class="markdownIt-Anchor" href="#服务端管理">#</a> 服务端管理</h2>
+<p>作为腐竹，想要在服务器出现问题时能够快速处理，就需要了解以下几个基础的知识点。</p>
+<p>以下就拿刚刚部署好的 <code>docker-compose.yml</code>  来逐行说明</p>
+<h3 id="基础信息"><a class="markdownIt-Anchor" href="#基础信息">#</a> 基础信息</h3>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.9&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">palworld-dedicated-server:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">palworld-dedicated-server</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">jammsen/palworld-dedicated-server:latest</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>version：声明这个文件适用的 docker-compose 的版本</p>
+</li>
+<li>
+<p>services: 创建的服务</p>
+</li>
+<li>
+<p>palworld-dedicated-server: 服务名</p>
+</li>
+<li>
+<p>container_name: 该容器的命名，可以自己取。</p>
+</li>
+<li>
+<p>restart：重启策略</p>
+<ul>
+<li>restart: “no” // 不会自动重启</li>
+<li>restart: always // 只要关掉了就会重启</li>
+<li>restart: on-failure // 服务启动失败会重启</li>
+<li>restart: unless-stopped // 除非被手动关闭</li>
+</ul>
+</li>
+<li>
+<p>image：镜像地址</p>
+<ul>
+<li>作为核心。一个将服务端打包好的链接，本次用的是 https://github.com/jammsen/docker-palworld-dedicated-server</li>
+<li>也可以自己制作并打包镜像，这里就不多赘述。</li>
+</ul>
+</li>
+</ul>
+<h3 id="端口映射"><a class="markdownIt-Anchor" href="#端口映射">#</a> 端口映射</h3>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">target:</span> <span class="number">8211</span> <span class="comment"># Gamerserver port inside of the container</span></span><br><span class="line">    <span class="attr">published:</span> <span class="number">8211</span> <span class="comment"># Gamerserver port on your host</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">udp</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">host</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">target:</span> <span class="number">25575</span> <span class="comment"># RCON port inside of the container</span></span><br><span class="line">    <span class="attr">published:</span> <span class="number">25575</span> <span class="comment"># RCON port on your host</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">tcp</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">host</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>target</code> : 容器自己本身的端口。镜像不变更的情况下不能改这个
+<ul>
+<li>对于帕鲁服务端来说，默认端口开放在 8211，镜像制作也一般选择 8211</li>
+</ul>
+</li>
+<li><code>published</code> : 对外暴露的端口。也就是你在客户端要连接的时候需要输入的端口号。这个可以自己调整</li>
+<li><code>protocol</code> : 端口的协议。一般服务端都是 UDP 协议，网站一般是 TCP 协议。</li>
+<li><code>mode</code> : 网络模式，有 <code>host</code>  、 <code>bridge</code> 、  <code>none</code>  等这里就不展开了。要深入了解的可以查看文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/network/drivers/">https://docs.docker.com/network/drivers/</a></li>
+</ul>
+<h3 id="目录映射"><a class="markdownIt-Anchor" href="#目录映射">#</a> 目录映射</h3>
+<pre><code>env_file:
+  - ./default.env
+volumes:
+  - ./game:/palworld
+</code></pre>
+<ul>
+<li><code>env_file</code> : 从文件中读取配置作为服务启动后的<strong>环境变量</strong>。</li>
+<li><code>volumes</code> : 挂载文件
+<ul>
+<li>由于 Docker 的便利性，所以在没有挂载文件时，在关闭 docker 服务后，服务中的所有数据都将不复存在（主打一个片叶不沾身）</li>
+<li>因此，为了保存我们的服务端数据，需要将游戏的文件存在我们的机器上。</li>
+<li><code>./game:/palworld</code>  的意思是，将当前目录下的 game 目录挂载到容器中的 /palworld 目录下。（通俗的说就是 game 目录此时等同于 palword 目录）</li>
+<li>此时，docker 服务里面产生游戏数据都会存到 /palworld 目录下，我们也就可以通过 game 目录访问到游戏数据了</li>
+<li>在游戏启动完成后，你可以 cd 到 game 目录下查看是否已经有了游戏文件了</li>
+<li><img src="https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292131502.png" alt="游戏目录的文件"></li>
+</ul>
+</li>
+</ul>
+<p>有了这个目录映射后，想要对游戏的配置进行手动变更、对存档进行修改、恢复存档，都可以通过 game 目录来进行操作。</p>
+<p>比如查看服务端配置文件：Pal\Saved\Config\LinuxServer\PalWorldSettings.ini</p>
+<h3 id="资源使用情况"><a class="markdownIt-Anchor" href="#资源使用情况">#</a> 资源使用情况</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stats</span><br></pre></td></tr></table></figure>
+<p>通过这个命令，可以查看到帕鲁服务占用的资源，如果占用异常了，就及时进行重启 <code>docker compose restart</code> 。</p>
+<p>如下图第一个就是帕鲁服务器的资源占用情况。这还是已经配置了自动重启后的。<br>
+<img src="https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402281502468.png" alt="帕鲁服务资源占用"></p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结">#</a> 总结</h2>
+<p>以上就是帮助各位成为一名合格的监督帕鲁的服主的教程，当然还有很多细节没有介绍到。</p>
+<p>如果有需要，那就另外开坑细讲了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://bigorange.work">Antengye</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://bigorange.work/p/489377b1/">https://bigorange.work/p/489377b1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://bigorange.work" target="_blank">Antengye's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/docker/">Docker</a><a class="post-meta__tags" href="/tags/game/">game</a></div><div class="post-share"><div class="social-share" data-image="https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402292117030.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqusjs-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%8A%89%E6%8B%A9"><span class="toc-number">2.</span> <span class="toc-text"> 服务器的抉择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E6%9C%89%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.1.</span> <span class="toc-text"> 公有云服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%81%E6%9C%89%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.2.</span> <span class="toc-text"> 私有服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text"> 配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text"> 服务端安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#docker"><span class="toc-number">3.1.</span> <span class="toc-text"> Docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-compose"><span class="toc-number">3.2.</span> <span class="toc-text"> Docker-compose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%90%AF%E5%8A%A8"><span class="toc-number">3.3.</span> <span class="toc-text"> 部署 + 启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AD%96%E7%95%A5%E6%94%BE%E8%A1%8C"><span class="toc-number">3.4.</span> <span class="toc-text"> 云服务器策略放行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%AE%A1%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text"> 服务端管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E4%BF%A1%E6%81%AF"><span class="toc-number">4.1.</span> <span class="toc-text"> 基础信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84"><span class="toc-number">4.2.</span> <span class="toc-text"> 端口映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E6%98%A0%E5%B0%84"><span class="toc-number">4.3.</span> <span class="toc-text"> 目录映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="toc-number">4.4.</span> <span class="toc-text"> 资源使用情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text"> 总结</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By Antengye</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">厉害啊，看完了</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.3.0"></script><script src="/js/main.js?v=5.3.0"></script><script src="/js/tw_cn.js?v=5.3.0"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'== 'shuoshuo'
+  const dqOption = null
+
+  const destroyDisqusjs = () => {
+    disqusjs.destroy()
+    window.disqusjs = null
+  }
+
+  const themeChange = (el, path) => {
+    destroyDisqusjs()
+    initDisqusjs(el, path)
+  }
+
+  const initDisqusjs = (el = document, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyDisqusjs = () => {
+        destroyDisqusjs()
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    disqusjs = new DisqusJS({
+      shortname: 'githubio',
+      title: '如何成为一名监督帕鲁的服主',
+      apikey: '2Pv8lPyzXtOaUWQmTrCMn2N9HeBip0BUtalpE5p34SGDeneDXiLJfyrv0sYGMmtg',
+      ...dqOption,
+      identifier: isShuoshuo ? path : (dqOption && dqOption.identifier) || '/p/489377b1/',
+      url: isShuoshuo ? location.origin + path : (dqOption && dqOption.url) || 'https://bigorange.work/p/489377b1/'
+    })
+
+    disqusjs.render(el.querySelector('#disqusjs-wrap'))
+
+    btf.addGlobalFn('themeChange', () => themeChange(el, path), 'disqusjs')
+  }
+
+  const loadDisqusjs = async(el, path) => {
+    if (window.disqusJsLoad) initDisqusjs(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/disqusjs@3.0.2/dist/browser/styles/disqusjs.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/disqusjs@3.0.2/dist/browser/disqusjs.es2015.umd.min.js')
+      initDisqusjs(el, path)
+      window.disqusJsLoad = true
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqusjs-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=githubio&api_key=2Pv8lPyzXtOaUWQmTrCMn2N9HeBip0BUtalpE5p34SGDeneDXiLJfyrv0sYGMmtg&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Disqusjs' === 'Disqusjs'
+      ? window.shuoshuoComment = { loadComment: loadDisqusjs }
+      : window.loadOtherComment = loadDisqusjs
+    return
+  }
+
+  if ('Disqusjs' === 'Disqusjs' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqusjs-wrap'), loadDisqusjs)
+    else {
+      loadDisqusjs()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqusjs
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
