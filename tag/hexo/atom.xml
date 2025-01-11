@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://bigorange.work</id>
+    <title>Antengye&#39;s Blog • Posts by &#34;hexo&#34; tag</title>
+    <link href="https://bigorange.work" />
+    <updated>2024-01-31T10:00:12.000Z</updated>
+    <category term="内网穿透" />
+    <category term="tailscale" />
+    <category term="headscale" />
+    <category term="network" />
+    <category term="Docker" />
+    <category term="game" />
+    <category term="折腾" />
+    <category term="Hexo" />
+    <entry>
+        <id>https://bigorange.work/p/e1f/</id>
+        <title>捣鼓hexo与githubio</title>
+        <link rel="alternate" href="https://bigorange.work/p/e1f/"/>
+        <content type="html">&lt;h2 id=&#34;前言&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h2&gt;
+&lt;p&gt;本以为建一个 blog 很简单，毕竟简单了解了一下用的方式，hexo+GitHub 几乎没什么成本嘛。&lt;br&gt;
+看到别人说还要整两天，我还觉得诧异，这有啥难的。&lt;br&gt;
+实际捣鼓到基本能用的程度之后才发现，对不起，是我低估了。&lt;/p&gt;
+&lt;h2 id=&#34;前期准备&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#前期准备&#34;&gt;#&lt;/a&gt; 前期准备&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;网络加速
+&lt;ol&gt;
+&lt;li&gt;不管做什么，有这个会好很多&lt;/li&gt;
+&lt;li&gt;后面把自己在这里踩的坑也分享一下&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;装 git&lt;/li&gt;
+&lt;li&gt;装 node.js&lt;/li&gt;
+&lt;li&gt;github 创建 2 个仓库（建议）
+&lt;ol&gt;
+&lt;li&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011118120.jpg&#34; alt=&#34;仓库安排&#34;&gt;&lt;/li&gt;
+&lt;li&gt;工作区就是自己写博客的环境，静态区就是用来挂博客文件的。&lt;/li&gt;
+&lt;li&gt;考虑可能会在不同地方写博客，所以把工作区也上传到 github 上进行管理。&lt;/li&gt;
+&lt;li&gt;静态区的创建参考官方教程：&lt;a href=&#34;https://pages.github.com/&#34;&gt;https://pages.github.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;安装&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#安装&#34;&gt;#&lt;/a&gt; 安装&lt;/h2&gt;
+&lt;p&gt;执行命令安装 hexo&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;npm install hexo-cli -g&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;找一个空的文件夹（这里作为&lt;strong&gt;本地工作区&lt;/strong&gt;）&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;hexo init&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;npm install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;找到生成出来的 &lt;code&gt;_config.yml&lt;/code&gt;  文件，主要先修改下面这几部分。&lt;br&gt;
+对应的就是上面说的静态区。&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;url: https://yourname.github.io/&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;theme: landscape &lt;span class=&#34;comment&#34;&gt;#主题&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;deploy:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;type&lt;/span&gt;: git &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    repo: git@github.com:yourname/yourname.github.io.git &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    branch: master &lt;span class=&#34;comment&#34;&gt;# 默认master分支&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    message: add new blog &lt;span class=&#34;comment&#34;&gt;# commit备注&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;部署&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#部署&#34;&gt;#&lt;/a&gt; 部署&lt;/h2&gt;
+&lt;p&gt;安装自动部署插件&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;npm install hexo-deployer-git --save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;执行命令&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;hexo d -g&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;正常情况下，可以等几分钟后访问 &lt;a href=&#34;https://yourname.github.io/&#34;&gt;https://yourname.github.io/&lt;/a&gt; 来看一眼部署成功没。&lt;br&gt;
+如果没有成功：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;检查 github 仓库的 action 流程完成没：&lt;a href=&#34;https://github.com/yourname/yourname.github.io/deployments/github-pages%E3%80%82&#34;&gt;https://github.com/yourname/yourname.github.io/deployments/github-pages。&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;如果 action 流程不存在，大概率就是 github 的 pages 部署有问题，瞄一下文档检查一下。&lt;a href=&#34;https://pages.github.com/&#34;&gt;https://pages.github.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;写文章&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#写文章&#34;&gt;#&lt;/a&gt; 写文章&lt;/h2&gt;
+&lt;p&gt;上述成功后，就可以开始写博客了。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;hexo new &amp;quot;第一篇文章&amp;quot;&lt;/code&gt;  # 新建文章，新建后在 source/_posts 目录下找到对应.md 文件开始写&lt;br&gt;
+ &lt;code&gt;hexo s -o&lt;/code&gt;  # 启动本地服务预览&lt;br&gt;
+ &lt;code&gt;hexo clean &amp;amp;&amp;amp; hexo g &amp;amp;&amp;amp; hexo d&lt;/code&gt;  # 清理，生成，部署&lt;/p&gt;
+&lt;p&gt;完事。&lt;/p&gt;
+&lt;h2 id=&#34;美化&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#美化&#34;&gt;#&lt;/a&gt; 美化&lt;/h2&gt;
+&lt;h3 id=&#34;主题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#主题&#34;&gt;#&lt;/a&gt; 主题&lt;/h3&gt;
+&lt;p&gt;正常来说，上述流程已经可以满足基本的需求了。&lt;/p&gt;
+&lt;p&gt;但是，想要让博客更好看点，就得上主题了。&lt;/p&gt;
+&lt;p&gt;我挑选的主题是&lt;a href=&#34;https://butterfly.js.org/&#34;&gt; butterfly&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;教程：&lt;a href=&#34;https://butterfly.js.org/posts/21cfbf15/&#34;&gt;https://butterfly.js.org/posts/21cfbf15/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;还有很多其他主题，这个就看个人喜好了。&lt;/p&gt;
+&lt;h3 id=&#34;图片&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#图片&#34;&gt;#&lt;/a&gt; 图片&lt;/h3&gt;
+&lt;p&gt;一篇文章如果没有图片，文章看起来就有些枯燥。&lt;/p&gt;
+&lt;p&gt;所以，至少给文章配一个 cover。&lt;/p&gt;
+&lt;p&gt;现在 AI 这么多工具，用 AI 来生成一个文章配图不算什么难事。&lt;/p&gt;
+&lt;p&gt;我把生成配图的 AI 工具整到了&lt;i class=&#34;fa-brands fa-discord&#34; style=&#34;color: #B197FC;&#34;&gt;&lt;/i&gt;&lt;a href=&#34;https://discord.gg/B2b9RdYb&#34;&gt;Discord&lt;/a&gt; 中，用起来更加方便一点。&lt;/p&gt;
+&lt;p&gt;比如这样：&lt;br&gt;
+&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011454144.png&#34; alt=&#34;Discord&#34;&gt;&lt;/p&gt;
+&lt;p&gt;欢迎进来一起使用：&lt;i class=&#34;fa-brands fa-discord&#34; style=&#34;color: #B197FC;&#34;&gt;&lt;/i&gt;&lt;a href=&#34;https://discord.gg/B2b9RdYb&#34;&gt;Discord&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;图床&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#图床&#34;&gt;#&lt;/a&gt; 图床&lt;/h3&gt;
+&lt;p&gt;有了图片，但是怎么贴到 markdown 里面是个问题。&lt;/p&gt;
+&lt;h4 id=&#34;hexo本身的静态资源&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#hexo本身的静态资源&#34;&gt;#&lt;/a&gt; hexo 本身的静态资源&lt;/h4&gt;
+&lt;p&gt;对于 hexo 来说，你可以在 source 目录下创建 images 目录，里面放置你的图片。&lt;br&gt;
+这样你就可以用 &lt;code&gt;/images/xxx.jpg&lt;/code&gt;  来引用图片了。&lt;/p&gt;
+&lt;h4 id=&#34;oss&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#oss&#34;&gt;#&lt;/a&gt; OSS&lt;/h4&gt;
+&lt;p&gt;你可以用七牛云、阿里云 OSS、腾讯云 OSS 等来存储图片。&lt;/p&gt;
+&lt;h4 id=&#34;使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用&#34;&gt;#&lt;/a&gt; 使用&lt;/h4&gt;
+&lt;p&gt;在图床上传完图片之后，直接在文章中贴 &lt;code&gt;![](图片地址)&lt;/code&gt;  对应图片的地址即可。&lt;/p&gt;
+&lt;p&gt;不过拖动图片 + 上传图片 + 复制图片地址的流程会有点麻烦，所以这里推荐工具 &lt;a href=&#34;https://picgo.github.io/PicGo-Doc/zh/guide/&#34;&gt;picgo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在安装完之后，推荐配置这几个选项&lt;br&gt;
+&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011510316.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在你配置完图床的信息之后，你只需要 &lt;code&gt;ctrl+c&lt;/code&gt;  一下你的图片，再按一下 &lt;code&gt;ctrl+shift+p&lt;/code&gt;  即可完成&lt;strong&gt;拖动图片 + 上传图片 + 复制图片地址&lt;/strong&gt;这个流程，这时候在文章中粘贴一下就完事了。&lt;/p&gt;
+&lt;h2 id=&#34;自定义域名&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#自定义域名&#34;&gt;#&lt;/a&gt; 自定义域名&lt;/h2&gt;
+&lt;p&gt;本来 github 的 pages 本身提供 https://yourname.github.io/ 的域名。&lt;/p&gt;
+&lt;p&gt;但是想要变更为自己的域名，就麻烦一点。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://xn--xxxx-uk1gj6r17c809cn4zb8f0ajkm.com&#34;&gt;比如说配置域名 xxxx.com&lt;/a&gt;，随后在域名运营商那里设置 DNS，增加 CNAME 记录:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Content&lt;/th&gt;
+&lt;th&gt;TTL&lt;/th&gt;
+&lt;th&gt;Proxy status&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CNAME&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxx.github.io&#34;&gt;xxx.github.io&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;除了 CNAME, 也可以配置 A 记录：&lt;/p&gt;
+&lt;p&gt;这几个 A 记录可以在这里确认：&lt;a href=&#34;https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site&#34;&gt;A 记录&lt;/a&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Content&lt;/th&gt;
+&lt;th&gt;TTL&lt;/th&gt;
+&lt;th&gt;Proxy status&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;185.199.108.153&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;185.199.109.153&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;185.199.110.153&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;185.199.111.153&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;自定义域名是无法直接使用 https，因为 GitHub 服务器上无法配置我们的域名的证书&lt;/p&gt;
+&lt;p&gt;现在 GitHub Pages 的初始域名会强制 HTTPS，也会强制 http 跳转 https:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Enforce HTTPS&lt;br&gt;
+— Required for your site because you are using the default domain (&lt;a href=&#34;http://xxx.github.io&#34;&gt;xxx.github.io&lt;/a&gt;)&lt;br&gt;
+HTTPS provides a layer of encryption that prevents others from snooping on or tampering with traffic to your site. When HTTPS is enforced, your site will only be &amp;gt; &amp;gt; served over HTTPS.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以，想要使用 https 的话，就得继续设置 CAA。&lt;a href=&#34;https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/troubleshooting-custom-domains-and-github-pages#https-errors&#34;&gt;原因&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;caa&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#caa&#34;&gt;#&lt;/a&gt; CAA&lt;/h3&gt;
+&lt;p&gt;GitHub 使用 &lt;code&gt;letsencrypt&lt;/code&gt;  提供的 &lt;code&gt;CAA&lt;/code&gt;  证书签名服务：&lt;a href=&#34;https://letsencrypt.org/docs/caa/&#34;&gt;CAA 说明&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;配置如下：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Content&lt;/th&gt;
+&lt;th&gt;TTL&lt;/th&gt;
+&lt;th&gt;Proxy status&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CAA&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://xxxx.com&#34;&gt;xxxx.com&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;0 issue &lt;a href=&#34;http://letsencrypt.org&#34;&gt;letsencrypt.org&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Auto&lt;/td&gt;
+&lt;td&gt;DNS only&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;然后等一段时间之后，访问&lt;a href=&#34;https://github.com/AnTengye/antengye.github.io/settings/pages&#34;&gt; github-pages&lt;/a&gt; 检查这个页面的 DNScheck 是否通过。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://gcore.jsdelivr.net/gh/antengye/picgo-db/hexo/202402011750256.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;通过后便可以勾选 Enforce HTTPS 了&lt;/p&gt;
+&lt;h2 id=&#34;结语&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#结语&#34;&gt;#&lt;/a&gt; 结语&lt;/h2&gt;
+&lt;p&gt;总的来说，整完这么一套，能把这篇博客发出来，就算是搞一个段落了。&lt;/p&gt;
+&lt;p&gt;中间用到的各种工具，得亏平时有一些接触，不然写起来是真的很麻烦。&lt;/p&gt;
+&lt;p&gt;后续应该会有更多的文章分享。&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;如果我勤快且有时间摸鱼的话&lt;/s&gt;&lt;/p&gt;
+&lt;p&gt;写完发布！&lt;br&gt;
+ &lt;code&gt;hexo clean&lt;/code&gt; &lt;br&gt;
+ &lt;code&gt;hexo d -g&lt;/code&gt;&lt;/p&gt;
+</content>
+        <category term="折腾" />
+        <category term="Hexo" />
+        <updated>2024-01-31T10:00:12.000Z</updated>
+    </entry>
+</feed>
